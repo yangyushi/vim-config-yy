@@ -85,3 +85,19 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
+" Auto Save Unnamed file to ~/Desktop/playground/tmp
+" Initial buffer used by SpaceVim is ignored
+au BufEnter * call AnonymousPy()
+
+function! AnonymousPy()
+    " no filename, no content, ignore 0 initial default buffer
+    let ignore_initial = 0
+    if (@% == "") && (getline(1, '$') == ['']) && bufnr('$') > ignore_initial
+        let current_time = strftime('%y%m%d-%H%M%S')
+        let directory = "~/Desktop/playground/tmp/"
+        let temp_fn = join([directory, current_time, ".py"], '')
+        let temp_cmd = join([":file ", temp_fn], '')
+        exec temp_cmd
+        set filetype=python
+    endif
+endfunction
