@@ -5,7 +5,7 @@
 - use [lucius](https://github.com/jonathanfilip/vim-lucius) color scheme
 - mainly for python programming
 
-## where to put files
+## Where to Put Files
 
 - Contents in this repository should be put in `~/.config/nvim` (macOS)
 
