@@ -1,7 +1,7 @@
 # nvim_config
 
 - configuration for [neovim](https://github.com/neovim/neovim)
-- use [vim-plug](vim-plug remove plugin) for plugin management
+- use [vim-plug](https://github.com/junegunn/vim-plug) for plugin management
 - use [lucius](https://github.com/jonathanfilip/vim-lucius) color scheme
 - mainly for python programming
 
