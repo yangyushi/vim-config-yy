@@ -6,12 +6,15 @@ let mapleader = " "
 call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'nvie/vim-flake8'
-Plug 'Valloric/YouCompleteMe'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'w0rp/ale'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 call plug#end()
 let g:ycm_python_binary_path = '/usr/bin/python3'
-map <buffer><leader>t :NERDTree <CR>
+let g:keysound_enable = 1
+let g:keysound_theme = 'default'
 autocmd BufWritePost *.py call Flake8()
+map <leader>t :NERDTree <CR>
 
 "format
 set fileformat=unix
@@ -19,23 +22,44 @@ set background=dark
 
 "The indent
 set autoindent
+set expandtab
+set smarttab
 set tabstop=4
 set shiftwidth=4
-set expandtab
 set softtabstop=4
-set smarttab
+
+"serach match
 set hlsearch
-set incsearch
 set showmatch
-set number
+set incsearch
+
 "others
+set autochdir
 set ruler
 set showcmd
 syntax on
 colorscheme lucius
+
 "code folding type 'za' to fold or release the code"
 set foldmethod=indent
 set foldlevel=99
+
+"easier navigation, ctrl is hard to touch
+nmap <leader>v <C-w>v
+nmap <leader>s <C-w>s
+nmap <leader>h <C-w>h
+nmap <leader>j <C-w>j
+nmap <leader>k <C-w>k
+nmap <leader>l <C-w>l
+nmap <leader>w <C-w>w
+nmap <leader>c <C-w>c
+nmap <leader>o <C-w>o
+
+"for Chinese"
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+
 "auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
 
@@ -62,42 +86,30 @@ endfunction
 
 :au Syntax lst runtime! syntax/lst.vim
 
-"----2015-05-17---"
-set hlsearch
-set incsearch
-"set cursorline
-"set cursorcolumn
-nmap <leader>v <C-w>v
-nmap <leader>s <C-w>s
-nmap <leader>h <C-w>h
-nmap <leader>j <C-w>j
-nmap <leader>k <C-w>k
-nmap <leader>l <C-w>l
-nmap <leader>w <C-w>w
-nmap <leader>c <C-w>c
-nmap <leader>o <C-w>o
-"auto fill
-:map <leader>{ a{}<Esc>i
-:map <leader>[ a[]<Esc>i
-:map <leader>( a()<Esc>i
-"----for-Chinese-decode----"
-set encoding=utf-8
-set termencoding=utf-8
-set fileencoding=utf-8
 
 " Auto Save Unnamed file to ~/Desktop/playground/tmp
-" Initial buffer used by SpaceVim is ignored
-au BufEnter * call AnonymousPy()
+" au BufEnter * call AnonymousPy()
 
 function! AnonymousPy()
     " no filename, no content, ignore 0 initial default buffer
+    " todo: remove unnecessary buffer when editing a existing file
     let ignore_initial = 0
     if (@% == "") && (getline(1, '$') == ['']) && bufnr('$') > ignore_initial
         let current_time = strftime('%y%m%d-%H%M%S')
         let directory = "~/Desktop/playground/tmp/"
         let temp_fn = join([directory, current_time, ".py"], '')
-        let temp_cmd = join([":file ", temp_fn], '')
+        let temp_cmd = join([":e ", temp_fn], '')
         exec temp_cmd
         set filetype=python
     endif
 endfunction
+
+" hybrid line number
+set number relativenumber
+augroup number_toggle
+    au!
+    au BufEnter, FocusGained, InsertLeave * set relativenumber
+    au BufLeave, FocusLost, InsertEnter * set norelativenumber
+augroup END
+
+silent! py3 pass
