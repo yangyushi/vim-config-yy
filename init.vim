@@ -28,6 +28,9 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
+"The folding
+set foldmethod=syntax
+
 "serach match
 set hlsearch
 set showmatch
@@ -62,6 +65,7 @@ set fileencoding=utf-8
 
 "auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
+nnoremap <D-b> :call <SID>run_test()<CR>
 
 augroup SPACEVIM_ASYNCRUN
     autocmd!
@@ -81,6 +85,17 @@ function! s:compile_and_run()
        exec "AsyncRun! time bash %"
     elseif &filetype == 'python'
        exec "AsyncRun! time python3 %"
+    endif
+endfunction
+
+function! s:run_test()
+    exec 'w'
+    if !empty(glob("../test/test.sh"))
+       exec "AsyncRun! time bash ../test/test.sh"
+    elseif !empty(glob("test/test.sh"))
+       exec "AsyncRun! time bash test/test.sh"
+    elseif !empty(glob("test.sh"))
+       exec "AsyncRun! time bash test.sh"
     endif
 endfunction
 
