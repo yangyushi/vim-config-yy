@@ -65,7 +65,7 @@ set fileencoding=utf-8
 
 "auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
-nnoremap <D-b> :call <SID>run_test()<CR>
+nnoremap <D-s> :call <SID>run_test()<CR>
 
 augroup SPACEVIM_ASYNCRUN
     autocmd!
