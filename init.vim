@@ -3,7 +3,7 @@ filetype on
 let mapleader = " "
 
 " plugins
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('$PWD/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'nvie/vim-flake8'
 Plug 'skywind3000/asyncrun.vim'
