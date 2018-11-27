@@ -3,7 +3,7 @@ filetype on
 let mapleader = " "
 
 " plugins
-call plug#begin('$PWD/plugged')
+call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'nvie/vim-flake8'
 Plug 'skywind3000/asyncrun.vim'
@@ -13,8 +13,10 @@ call plug#end()
 let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
-autocmd BufWritePost *.py call Flake8()
+"autocmd BufWritePost *.py call Flake8()
 map <leader>t :NERDTree <CR>
+
+let g:ale_linters = {'python': ['flake8']}
 
 "format
 set fileformat=unix
@@ -54,9 +56,21 @@ nmap <leader>h <C-w>h
 nmap <leader>j <C-w>j
 nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
-nmap <leader>w <C-w>w
-nmap <leader>c <C-w>c
-nmap <leader>o <C-w>o
+"nmap <leader>w <C-w>w
+"nmap <leader>c <C-w>c
+"nmap <leader>o <C-w>o
+
+nmap <leader>1 :b1<cr>
+nmap <leader>2 :b2<cr>
+nmap <leader>3 :b3<cr>
+nmap <leader>4 :b4<cr>
+nmap <leader>5 :b5<cr>
+nmap <leader>6 :b6<cr>
+nmap <leader>7 :b7<cr>
+nmap <leader>8 :b8<cr>
+nmap <leader>9 :b9<cr>
+
+nmap <leader>w :bd<cr>
 
 "for Chinese"
 set encoding=utf-8
@@ -65,7 +79,8 @@ set fileencoding=utf-8
 
 "auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
-nnoremap <D-s> :call <SID>run_test()<CR>
+nnoremap <F5> :call <SID>compile_and_run()<CR>
+nnoremap <F6> :call <SID>run_test()<CR>
 
 augroup SPACEVIM_ASYNCRUN
     autocmd!
@@ -104,7 +119,6 @@ endfunction
 
 " Auto Save Unnamed file to ~/Desktop/playground/tmp
 " au BufEnter * call AnonymousPy()
-
 function! AnonymousPy()
     " no filename, no content, ignore 0 initial default buffer
     " todo: remove unnecessary buffer when editing a existing file
