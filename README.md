@@ -1,13 +1,16 @@
 # nvim_config
 
-- configuration for [neovim](https://github.com/neovim/neovim)
+- configuration for [neovim](https://github.com/neovim/neovim) and vim
 - use [vim-plug](https://github.com/junegunn/vim-plug) for plugin management
 - use [lucius](https://github.com/jonathanfilip/vim-lucius) color scheme
 - mainly for python programming
 
 ## Where to Put Files
 
-- Contents in this repository should be put in `~/.config/nvim` (macOS)
+Contents in this repository should be put in 
+
+- `~/.config/nvim` if you are using neovim
+- `~/.vim` if you are using vim
 
 ## Install Plugins
 
