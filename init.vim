@@ -5,14 +5,13 @@ let mapleader = " "
 " plugins
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
-Plug 'nvie/vim-flake8'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'w0rp/ale'
 Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'https://github.com/vim-syntastic/syntastic'
 call plug#end()
-let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
+let g:syntastic_python_checkers = ['python']
 "autocmd BufWritePost *.py call Flake8()
 map <leader>t :NERDTree <CR>
 
