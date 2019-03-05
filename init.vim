@@ -71,15 +71,15 @@ nmap <leader>9 :b9<cr>
 
 nmap <leader>w :bd<cr>
 
-"for Chinese"
+" for Chinese
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
-"auto run
+" auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
-nnoremap <F5> :call <SID>compile_and_run()<CR>
-nnoremap <F6> :call <SID>run_test()<CR>
+nnoremap <F5>  :call <SID>compile_and_run()<CR>
+nnoremap <F6>  :call <SID>run_test()       <CR>
 
 augroup SPACEVIM_ASYNCRUN
     autocmd!
@@ -115,7 +115,6 @@ endfunction
 
 :au Syntax lst runtime! syntax/lst.vim
 
-
 " Auto Save Unnamed file to ~/Desktop/playground/tmp
 " au BufEnter * call AnonymousPy()
 function! AnonymousPy()
@@ -141,3 +140,6 @@ augroup number_toggle
 augroup END
 
 silent! py3 pass
+
+" use ctags to update tags
+autocmd BufWritePost * call system("ctags")
