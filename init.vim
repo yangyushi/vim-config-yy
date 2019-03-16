@@ -55,6 +55,8 @@ nmap <leader>h <C-w>h
 nmap <leader>j <C-w>j
 nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
+nmap <leader>] <C-]>
+nmap <leader>[ <C-T>
 "nmap <leader>w <C-w>w
 "nmap <leader>c <C-w>c
 "nmap <leader>o <C-w>o
