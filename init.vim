@@ -8,14 +8,15 @@ Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'https://github.com/vim-syntastic/syntastic'
+Plug 'https://github.com/Valloric/YouCompleteMe'
 call plug#end()
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
 let g:syntastic_python_checkers = ['python']
-"autocmd BufWritePost *.py call Flake8()
 map <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
+let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
 
 "format
 set fileformat=unix
@@ -57,6 +58,7 @@ nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
 nmap <leader>] <C-]>
 nmap <leader>[ <C-T>
+nmap <D-i> <C-n>
 "nmap <leader>w <C-w>w
 "nmap <leader>c <C-w>c
 "nmap <leader>o <C-w>o
@@ -144,4 +146,4 @@ augroup END
 silent! py3 pass
 
 " use ctags to update tags
-autocmd BufWritePost * call system("ctags")
+autocmd BufWritePost * call system("ctags *")
