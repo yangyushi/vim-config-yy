@@ -58,10 +58,10 @@ nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
 nmap <leader>] <C-]>
 nmap <leader>[ <C-T>
+nmap <leader>n :nohl<cr>
+" quicker substitute
+nmap <leader>r :%s/\<<C-r><C-w>\>/
 nmap <D-i> <C-n>
-"nmap <leader>w <C-w>w
-"nmap <leader>c <C-w>c
-"nmap <leader>o <C-w>o
 
 nmap <leader>1 :b1<cr>
 nmap <leader>2 :b2<cr>
