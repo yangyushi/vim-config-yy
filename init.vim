@@ -1,22 +1,26 @@
 "general set for plugins
+
 filetype on
 let mapleader = " "
 
 " plugins
 call plug#begin('~/.vim/plugged')
+Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'jacoborus/tender.vim'
 call plug#end()
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
-let g:syntastic_python_checkers = ['python']
+let g:syntastic_python_checkers = ['python3']
 map <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
 let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
+
+colorscheme tender
 
 "format
 set fileformat=unix
@@ -43,7 +47,6 @@ set autochdir
 set ruler
 set showcmd
 syntax on
-colorscheme lucius
 
 "code folding type 'za' to fold or release the code"
 set foldmethod=indent
@@ -147,3 +150,5 @@ silent! py3 pass
 
 " use ctags to update tags
 autocmd BufWritePost * call system("ctags *")
+
+let macvim_skip_colorscheme=1
