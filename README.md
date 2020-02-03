@@ -11,6 +11,7 @@ Contents in this repository should be put in
 
 - `~/.config/nvim` if you are using neovim
 - `~/.vim` if you are using vim
+- make soft link of `init.vim` as `~/.vimrc` for ubuntu 18.04
 
 ## Install Plugins
 
