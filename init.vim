@@ -8,19 +8,21 @@ call plug#begin('~/.vim/plugged')
 Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'parkr/vim-jekyll'
 call plug#end()
+
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
-let g:syntastic_python_checkers = ['python3']
+
 map <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
 let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
 
-colorscheme tender
+colorscheme lucius
 
 "format
 set fileformat=unix
@@ -105,7 +107,7 @@ function! s:compile_and_run()
     elseif &filetype == 'sh'
        exec "AsyncRun! time bash %"
     elseif &filetype == 'python'
-       exec "AsyncRun! time python3 %"
+       exec ":! time python3 %"
     elseif &filetype == 'r'
         exec "!Rscript %"
     endif
