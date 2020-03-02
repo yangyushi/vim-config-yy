@@ -5,20 +5,24 @@ let mapleader = " "
 
 " plugins
 call plug#begin('~/.vim/plugged')
+Plug 'lervag/vimtex'
+Plug 'dense-analysis/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'https://github.com/vim-syntastic/syntastic'
-Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
 call plug#end()
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
-let g:syntastic_python_checkers = ['python3']
+
 map <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
+let g:ale_python_flake8_executable = '/home/yy17363/.local/bin/flake8'
+let b:ale_python_flake8_use_global = 1
 let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
+let g:vimtex_mappings_enabled = 1
 
 colorscheme tender
 
@@ -64,8 +68,9 @@ nmap <leader>[ <C-T>
 nmap <leader>n :nohl<cr>
 " quicker substitute
 nmap <leader>r :%s/\<<C-r><C-w>\>/
-nmap <D-i> <C-n>
 
+
+nmap <D-i> <C-n>
 nmap <leader>1 :b1<cr>
 nmap <leader>2 :b2<cr>
 nmap <leader>3 :b3<cr>
@@ -83,8 +88,10 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
+" copy with Ctrl+Shift+c
+vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
 " auto run
-nnoremap <D-r> :call <SID>compile_and_run()<CR>
+nnoremap <C-r> :call <SID>compile_and_run()<CR>
 nnoremap <F5>  :call <SID>compile_and_run()<CR>
 nnoremap <F6>  :call <SID>run_test()       <CR>
 
@@ -108,6 +115,9 @@ function! s:compile_and_run()
        exec "AsyncRun! time python3 %"
     elseif &filetype == 'r'
         exec "!Rscript %"
+    elseif &filetype == 'tex'
+        exec "VimtexCompile"
+        exec "VimtexView"
     endif
 endfunction
 
