@@ -12,7 +12,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'parkr/vim-jekyll'
 call plug#end()
+
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
 
@@ -112,7 +115,7 @@ function! s:compile_and_run()
     elseif &filetype == 'sh'
        exec "AsyncRun! time bash %"
     elseif &filetype == 'python'
-       exec "AsyncRun! time python3 %"
+       exec ":! time python3 %"
     elseif &filetype == 'r'
         exec "!Rscript %"
     elseif &filetype == 'tex'
