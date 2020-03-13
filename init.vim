@@ -13,6 +13,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'rhysd/vim-grammarous'
 Plug 'parkr/vim-jekyll'
 call plug#end()
 
@@ -26,6 +27,7 @@ let g:ale_python_flake8_executable = '/home/yy17363/.local/bin/flake8'
 let b:ale_python_flake8_use_global = 1
 let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
 let g:vimtex_mappings_enabled = 1
+let g:polyglot_disabled = ['latex']
 
 colorscheme tender
 
@@ -71,6 +73,8 @@ nmap <leader>[ <C-T>
 nmap <leader>n :nohl<cr>
 " quicker substitute
 nmap <leader>r :%s/\<<C-r><C-w>\>/
+" grammer check
+nmap <leader>g :GrammarousCheck<cr>
 
 
 nmap <D-i> <C-n>
@@ -121,6 +125,7 @@ function! s:compile_and_run()
     elseif &filetype == 'tex'
         exec "VimtexCompile"
         exec "VimtexView"
+        exec "VimtexClean"
     endif
 endfunction
 
