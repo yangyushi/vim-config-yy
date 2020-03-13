@@ -11,6 +11,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
+Plug 'stevearc/vim-arduino'
+Plug 'sudar/vim-arduino-syntax'
 call plug#end()
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
@@ -64,8 +66,10 @@ nmap <leader>[ <C-T>
 nmap <leader>n :nohl<cr>
 " quicker substitute
 nmap <leader>r :%s/\<<C-r><C-w>\>/
+
 nmap <D-i> <C-n>
 
+" quicker switching between buffers
 nmap <leader>1 :b1<cr>
 nmap <leader>2 :b2<cr>
 nmap <leader>3 :b3<cr>
@@ -75,7 +79,6 @@ nmap <leader>6 :b6<cr>
 nmap <leader>7 :b7<cr>
 nmap <leader>8 :b8<cr>
 nmap <leader>9 :b9<cr>
-
 nmap <leader>w :bd<cr>
 
 " for Chinese
@@ -85,6 +88,7 @@ set fileencoding=utf-8
 
 " auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
+nnoremap <C-r> :call <SID>compile_and_run()<CR>
 nnoremap <F5>  :call <SID>compile_and_run()<CR>
 nnoremap <F6>  :call <SID>run_test()       <CR>
 
@@ -154,3 +158,12 @@ silent! py3 pass
 autocmd BufWritePost * call system("ctags *")
 
 let macvim_skip_colorscheme=1
+
+" for arduino
+nnoremap <buffer> <leader>am :ArduinoVerify<CR>
+nnoremap <buffer> <leader>au :ArduinoUpload<CR>
+nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
+nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
+nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
+
+
