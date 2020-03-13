@@ -5,22 +5,31 @@ let mapleader = " "
 
 " plugins
 call plug#begin('~/.vim/plugged')
+Plug 'lervag/vimtex'
+Plug 'dense-analysis/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'https://github.com/vim-syntastic/syntastic'
-Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
 Plug 'stevearc/vim-arduino'
 Plug 'sudar/vim-arduino-syntax'
+Plug 'sheerun/vim-polyglot'
+Plug 'rhysd/vim-grammarous'
+Plug 'parkr/vim-jekyll'
 call plug#end()
+
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
-let g:syntastic_python_checkers = ['python3']
+
 map <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
+let g:ale_python_flake8_executable = '/home/yy17363/.local/bin/flake8'
+let b:ale_python_flake8_use_global = 1
 let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
+let g:vimtex_mappings_enabled = 1
+let g:polyglot_disabled = ['latex']
 
 colorscheme tender
 
@@ -69,6 +78,9 @@ nmap <leader>r :%s/\<<C-r><C-w>\>/
 
 nmap <D-i> <C-n>
 
+" grammer check
+nmap <leader>g :GrammarousCheck<cr>
+
 " quicker switching between buffers
 nmap <leader>1 :b1<cr>
 nmap <leader>2 :b2<cr>
@@ -86,6 +98,8 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
+" copy with Ctrl+Shift+c
+vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
 " auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
 nnoremap <C-r> :call <SID>compile_and_run()<CR>
@@ -109,9 +123,13 @@ function! s:compile_and_run()
     elseif &filetype == 'sh'
        exec "AsyncRun! time bash %"
     elseif &filetype == 'python'
-       exec "AsyncRun! time python3 %"
+       exec ":! time python3 %"
     elseif &filetype == 'r'
         exec "!Rscript %"
+    elseif &filetype == 'tex'
+        exec "VimtexCompile"
+        exec "VimtexView"
+        exec "VimtexClean"
     endif
 endfunction
 
@@ -165,5 +183,3 @@ nnoremap <buffer> <leader>au :ArduinoUpload<CR>
 nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
 nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
 nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
-
-
