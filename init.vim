@@ -22,7 +22,7 @@ call plug#end()
 let g:keysound_enable = 1
 let g:keysound_theme = 'default'
 
-map <leader>t :NERDTree <CR>
+nnoremap <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_python_flake8_executable = '/home/yy17363/.local/bin/flake8'
@@ -64,42 +64,48 @@ set foldmethod=indent
 set foldlevel=99
 
 "easier navigation, ctrl is hard to touch
-nmap <leader>v <C-w>v
-nmap <leader>s <C-w>s
-nmap <leader>h <C-w>h
-nmap <leader>j <C-w>j
-nmap <leader>k <C-w>k
-nmap <leader>l <C-w>l
-nmap <leader>] <C-]>
-nmap <leader>[ <C-T>
-nmap <leader>n :nohl<cr>
+nnoremap <leader>v <C-w>v
+nnoremap <leader>s <C-w>s
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+nnoremap <leader>] <C-]>
+nnoremap <leader>[ <C-T>
+nnoremap <leader>n :nohl<cr>
 " quicker substitute
-nmap <leader>r :%s/\<<C-r><C-w>\>/
+nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 
-nmap <D-i> <C-n>
+nnoremap <D-i> <C-n>
 
 " grammer check
-nmap <leader>g :GrammarousCheck<cr>
+nnoremap <leader>g :GrammarousCheck<cr>
 
 " quicker switching between buffers
-nmap <leader>1 :b1<cr>
-nmap <leader>2 :b2<cr>
-nmap <leader>3 :b3<cr>
-nmap <leader>4 :b4<cr>
-nmap <leader>5 :b5<cr>
-nmap <leader>6 :b6<cr>
-nmap <leader>7 :b7<cr>
-nmap <leader>8 :b8<cr>
-nmap <leader>9 :b9<cr>
-nmap <leader>w :bd<cr>
+nnoremap <leader>1 :b1<cr>
+nnoremap <leader>2 :b2<cr>
+nnoremap <leader>3 :b3<cr>
+nnoremap <leader>4 :b4<cr>
+nnoremap <leader>5 :b5<cr>
+nnoremap <leader>6 :b6<cr>
+nnoremap <leader>7 :b7<cr>
+nnoremap <leader>8 :b8<cr>
+nnoremap <leader>9 :b9<cr>
+nnoremap <leader>w :bd<cr>
 
 " for Chinese
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
-" copy with Ctrl+Shift+c
-vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
+" copy with Ctrl+Shift+c in ubuntu or Ctrl+c in macOS
+if has("unix")
+    vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
+endif
+if has("macunix")
+    vnoremap <C-c> :w !pbcopy<CR><CR>
+endif
+
 " auto run
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
 nnoremap <C-r> :call <SID>compile_and_run()<CR>
