@@ -3,6 +3,10 @@
 filetype on
 let mapleader = " "
 
+" allow project specific vimrc file
+set exrc
+set secure
+
 " plugins
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
@@ -15,8 +19,8 @@ Plug 'jacoborus/tender.vim'
 Plug 'stevearc/vim-arduino'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'sheerun/vim-polyglot'
-Plug 'rhysd/vim-grammarous'
-Plug 'parkr/vim-jekyll'
+"Plug 'rhysd/vim-grammarous'
+"Plug 'parkr/vim-jekyll'
 call plug#end()
 
 let g:keysound_enable = 1
@@ -121,9 +125,9 @@ augroup END
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'c'
-        exec "AsyncRun! gcc % -o %<; time ./%<"
+       exec "!echo \"using $(which gcc)\\n\"; gcc % -o %<; time ./%<"
     elseif &filetype == 'cpp'
-       exec "AsyncRun! g++ -std=c++11 % -o %<; time ./%<"
+       exec "!echo \"using $(which g++)\\n\"; g++ -std=c++11 % -o %<; time ./%<"
     elseif &filetype == 'java'
        exec "AsyncRun! javac %; time java %<"
     elseif &filetype == 'sh'
