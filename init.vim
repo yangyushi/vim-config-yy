@@ -19,8 +19,6 @@ Plug 'jacoborus/tender.vim'
 Plug 'stevearc/vim-arduino'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'sheerun/vim-polyglot'
-"Plug 'rhysd/vim-grammarous'
-"Plug 'parkr/vim-jekyll'
 call plug#end()
 
 let g:keysound_enable = 1
@@ -55,7 +53,7 @@ set foldmethod=syntax
 "serach match
 set hlsearch
 set showmatch
-set incsearch
+set noincsearch
 
 "others
 set autochdir
@@ -81,9 +79,6 @@ nnoremap <leader>n :nohl<cr>
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 
 nnoremap <D-i> <C-n>
-
-" grammer check
-nnoremap <leader>g :GrammarousCheck<cr>
 
 " quicker switching between buffers
 nnoremap <leader>1 :b1<cr>
@@ -193,3 +188,8 @@ nnoremap <buffer> <leader>au :ArduinoUpload<CR>
 nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
 nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
 nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
+
+
+" always search forwards
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
