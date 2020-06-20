@@ -54,6 +54,8 @@ set foldmethod=syntax
 set hlsearch
 set showmatch
 set noincsearch
+nnoremap * *``
+nnoremap # #``
 
 "others
 set autochdir
