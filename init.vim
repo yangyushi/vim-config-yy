@@ -7,6 +7,7 @@ let mapleader = " "
 set exrc
 set secure
 
+let g:polyglot_disabled = ['mathematica']
 " plugins
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
@@ -54,8 +55,14 @@ set foldmethod=syntax
 set hlsearch
 set showmatch
 set noincsearch
+"highlight without moving cursor
 nnoremap * *``
 nnoremap # #``
+augroup CursorPosition
+  autocmd!
+  autocmd BufLeave * let b:winview = winsaveview()
+  autocmd BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
+augroup END
 
 "others
 set autochdir
@@ -140,6 +147,25 @@ function! s:compile_and_run()
     endif
 endfunction
 
+
+function! CallCtags()
+    if &filetype == 'c'
+       exec "!ctags *.c *.h"
+    elseif &filetype == 'cpp'
+       exec "!ctags *.cpp *.hpp *.c *.h *.tpp *.cc"
+    elseif &filetype == 'sh'
+       exec "!ctags *.sh"
+    elseif &filetype == 'python'
+       exec "!ctags *.py"
+    elseif &filetype == 'r'
+        exec "!ctags *.r"
+    elseif &filetype == 'tex'
+        exec "!ctags *.tex"
+    endif
+    redraw
+endfunction
+
+
 function! s:run_test()
     exec 'w'
     if !empty(glob("../test/test.sh"))
@@ -180,7 +206,7 @@ augroup END
 silent! py3 pass
 
 " use ctags to update tags
-autocmd BufWritePost * call system("ctags *")
+autocmd BufWritePost * call CallCtags()
 
 let macvim_skip_colorscheme=1
 
@@ -195,3 +221,6 @@ nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
 " always search forwards
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
+
+" easier copy on macOS
+set clipboard=unnamed
