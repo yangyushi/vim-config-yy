@@ -1,9 +1,7 @@
-# nvim_config
+# My Vim Configuration
 
 - configuration for [neovim](https://github.com/neovim/neovim) and vim
 - use [vim-plug](https://github.com/junegunn/vim-plug) for plugin management
-- use [lucius](https://github.com/jonathanfilip/vim-lucius) color scheme
-- mainly for python programming
 
 ## Where to Put Files
 
@@ -11,7 +9,12 @@ Contents in this repository should be put in
 
 - `~/.config/nvim` if you are using neovim
 - `~/.vim` if you are using vim
-- make soft link of `init.vim` as `~/.vimrc` for ubuntu 18.04
+- make soft link of `init.vim` as `~/.vimrc` for Linux systems
+
+## Useful Binary
+
+- ctags
+- xdot (for generating graph)
 
 ## Install Plugins
 
