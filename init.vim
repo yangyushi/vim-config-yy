@@ -7,32 +7,22 @@ let mapleader = " "
 set exrc
 set secure
 
-let g:polyglot_disabled = ['mathematica']
 " plugins
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
 Plug 'dense-analysis/ale'
-Plug 'wakatime/vim-wakatime'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'Valloric/YouCompleteMe'
 Plug 'jacoborus/tender.vim'
-Plug 'stevearc/vim-arduino'
-Plug 'sudar/vim-arduino-syntax'
-Plug 'sheerun/vim-polyglot'
 call plug#end()
-
-let g:keysound_enable = 1
-let g:keysound_theme = 'default'
 
 nnoremap <leader>t :NERDTree <CR>
 
 let g:ale_linters = {'python': ['flake8']}
-let g:ale_python_flake8_executable = '/home/yy17363/.local/bin/flake8'
+let g:ale_python_flake8_executable = '/home/yushi/.local/bin/flake8'
 let b:ale_python_flake8_use_global = 1
-let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
+let g:ycm_path_to_python_interpreter='/home/yushi/.local/bin/python3.11'
 let g:vimtex_mappings_enabled = 1
-let g:polyglot_disabled = ['latex']
 
 colorscheme tender
 
@@ -118,13 +108,14 @@ endif
 nnoremap <D-r> :call <SID>compile_and_run()<CR>
 nnoremap <C-r> :call <SID>compile_and_run()<CR>
 nnoremap <F5>  :call <SID>compile_and_run()<CR>
-nnoremap <F6>  :call <SID>run_test()       <CR>
+
 
 augroup SPACEVIM_ASYNCRUN
     autocmd!
     " Automatically open the quickfix window
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
 augroup END
+
 
 function! s:compile_and_run()
     exec 'w'
@@ -138,6 +129,8 @@ function! s:compile_and_run()
        exec "AsyncRun! time bash %"
     elseif &filetype == 'python'
        exec ":! time python3 %"
+    elseif &filetype == 'dot'
+       exec ":! xdot %"
     elseif &filetype == 'r'
         exec "!Rscript %"
     elseif &filetype == 'tex'
@@ -150,50 +143,19 @@ endfunction
 
 function! CallCtags()
     if &filetype == 'c'
-       exec "!ctags *.c *.h"
+       exec ":silent !ctags *.c *.h"
     elseif &filetype == 'cpp'
-       exec "!ctags *.cpp *.hpp *.c *.h *.tpp *.cc"
-    elseif &filetype == 'sh'
-       exec "!ctags *.sh"
+       exec ":silent !ctags *.cpp *.hpp *.c *.h *.tpp *.cc"
     elseif &filetype == 'python'
-       exec "!ctags *.py"
+       exec ":silent !ctags *.py"
     elseif &filetype == 'r'
-        exec "!ctags *.r"
+        exec ":silent !ctags *.r"
     elseif &filetype == 'tex'
-        exec "!ctags *.tex"
-    endif
-    redraw
-endfunction
-
-
-function! s:run_test()
-    exec 'w'
-    if !empty(glob("../test/test.sh"))
-       exec "AsyncRun! time bash ../test/test.sh"
-    elseif !empty(glob("test/test.sh"))
-       exec "AsyncRun! time bash test/test.sh"
-    elseif !empty(glob("test.sh"))
-       exec "AsyncRun! time bash test.sh"
+        exec ":silent !ctags *.tex"
     endif
 endfunction
 
-:au Syntax lst runtime! syntax/lst.vim
 
-" Auto Save Unnamed file to ~/Desktop/playground/tmp
-" au BufEnter * call AnonymousPy()
-function! AnonymousPy()
-    " no filename, no content, ignore 0 initial default buffer
-    " todo: remove unnecessary buffer when editing a existing file
-    let ignore_initial = 0
-    if (@% == "") && (getline(1, '$') == ['']) && bufnr('$') > ignore_initial
-        let current_time = strftime('%y%m%d-%H%M%S')
-        let directory = "~/Desktop/playground/tmp/"
-        let temp_fn = join([directory, current_time, ".py"], '')
-        let temp_cmd = join([":e ", temp_fn], '')
-        exec temp_cmd
-        set filetype=python
-    endif
-endfunction
 
 " hybrid line number
 set number relativenumber
@@ -203,24 +165,11 @@ augroup number_toggle
     au BufLeave, FocusLost, InsertEnter * set norelativenumber
 augroup END
 
-silent! py3 pass
 
 " use ctags to update tags
 autocmd BufWritePost * call CallCtags()
-
-let macvim_skip_colorscheme=1
-
-" for arduino
-nnoremap <buffer> <leader>am :ArduinoVerify<CR>
-nnoremap <buffer> <leader>au :ArduinoUpload<CR>
-nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
-nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
-nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
 
 
 " always search forwards
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
-
-" easier copy on macOS
-set clipboard=unnamed
