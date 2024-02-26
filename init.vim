@@ -9,7 +9,6 @@ set secure
 
 " plugins
 call plug#begin('~/.vim/plugged')
-Plug 'lervag/vimtex'
 Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
@@ -123,6 +122,8 @@ function! s:compile_and_run()
        exec "!echo \"using $(which gcc)\\n\"; gcc % -o %<; time ./%<"
     elseif &filetype == 'cpp'
        exec "!echo \"using $(which g++)\\n\"; g++ -std=c++11 % -o %<; time ./%<"
+    elseif &filetype == 'cuda'
+       exec "!echo \"using $(which nvcc)\\n\"; nvcc % -o %<; time ./%<"
     elseif &filetype == 'java'
        exec "AsyncRun! javac %; time java %<"
     elseif &filetype == 'sh'
@@ -169,7 +170,11 @@ augroup END
 " use ctags to update tags
 autocmd BufWritePost * call CallCtags()
 
-
 " always search forwards
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
+
+
+" to have the background transparent with the Terminal
+hi Normal ctermbg=none
+hi NonText ctermbg=none
