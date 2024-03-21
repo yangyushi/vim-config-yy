@@ -12,7 +12,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'jacoborus/tender.vim'
 call plug#end()
 
 nnoremap <leader>t :NERDTree <CR>
@@ -23,7 +22,7 @@ let b:ale_python_flake8_use_global = 1
 let g:ycm_path_to_python_interpreter='/home/yushi/.local/bin/python3.11'
 let g:vimtex_mappings_enabled = 1
 
-colorscheme tender
+colorscheme lucius
 
 "format
 set fileformat=unix
@@ -143,16 +142,8 @@ endfunction
 
 
 function! CallCtags()
-    if &filetype == 'c'
-       exec ":silent !ctags *.c *.h"
-    elseif &filetype == 'cpp'
-       exec ":silent !ctags *.cpp *.hpp *.c *.h *.tpp *.cc"
-    elseif &filetype == 'python'
+    if &filetype == 'python'
        exec ":silent !ctags *.py"
-    elseif &filetype == 'r'
-        exec ":silent !ctags *.r"
-    elseif &filetype == 'tex'
-        exec ":silent !ctags *.tex"
     endif
 endfunction
 
