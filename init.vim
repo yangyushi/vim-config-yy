@@ -12,9 +12,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 nnoremap <leader>t :NERDTree <CR>
+nnoremap <leader>f :Files <CR>
+nnoremap <leader>H :History <CR>
 
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_python_flake8_executable = '/home/yushi/.local/bin/flake8'
