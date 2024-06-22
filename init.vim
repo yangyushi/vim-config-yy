@@ -11,22 +11,21 @@ set secure
 call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdtree'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'preservim/tagbar'
 call plug#end()
 
 nnoremap <leader>t :NERDTree <CR>
+nnoremap <leader>e :TagbarToggle <CR>
 nnoremap <leader>f :Files <CR>
 nnoremap <leader>H :History <CR>
 
 let g:ale_linters = {'python': ['flake8']}
-let g:ale_python_flake8_executable = '/home/yushi/.local/bin/flake8'
+let g:ale_python_flake8_executable = 'flake8'
 let b:ale_python_flake8_use_global = 1
-let g:ycm_path_to_python_interpreter='/home/yushi/.local/bin/python3.11'
-let g:vimtex_mappings_enabled = 1
 
-colorscheme lucius
+colorscheme wal
 
 "format
 set fileformat=unix
@@ -47,6 +46,7 @@ set foldmethod=syntax
 set hlsearch
 set showmatch
 set noincsearch
+
 "highlight without moving cursor
 nnoremap * *``
 nnoremap # #``
@@ -76,6 +76,7 @@ nnoremap <leader>l <C-w>l
 nnoremap <leader>] <C-]>
 nnoremap <leader>[ <C-T>
 nnoremap <leader>n :nohl<cr>
+
 " quicker substitute
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 
@@ -112,46 +113,34 @@ nnoremap <C-r> :call <SID>compile_and_run()<CR>
 nnoremap <F5>  :call <SID>compile_and_run()<CR>
 
 
-augroup SPACEVIM_ASYNCRUN
-    autocmd!
-    " Automatically open the quickfix window
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-augroup END
-
-
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'c'
-       exec "!echo \"using $(which gcc)\\n\"; gcc % -o %<; time ./%<"
+       exec "!echo \"[Using $(which gcc)]\"; gcc % -o %<; time ./%<"
     elseif &filetype == 'cpp'
-       exec "!echo \"using $(which g++)\\n\"; g++ -std=c++11 % -o %<; time ./%<"
+       exec "!echo \"[Using $(which g++)]\"; g++ -g -std=c++20 % -o %<; time ./%<"
     elseif &filetype == 'cuda'
-       exec "!echo \"using $(which nvcc)\\n\"; nvcc % -o %<; time ./%<"
+       exec "!echo \"[Using $(which nvcc)]\"; nvcc % -o %<; time ./%<"
     elseif &filetype == 'java'
-       exec "AsyncRun! javac %; time java %<"
+       exec "! javac %; time java %<"
     elseif &filetype == 'sh'
-       exec "AsyncRun! time bash %"
+       exec "! time bash %"
     elseif &filetype == 'python'
        exec ":! time python3 %"
     elseif &filetype == 'dot'
        exec ":! xdot %"
     elseif &filetype == 'r'
         exec "!Rscript %"
-    elseif &filetype == 'tex'
-        exec "VimtexCompile"
-        exec "VimtexView"
-        exec "VimtexClean"
     endif
 endfunction
 
-
+" to create .tags automatically by ctags and use it for navigation
 function! CallCtags()
     if &filetype == 'python'
-       exec ":silent !ctags *.py"
+       exec ":silent !ctags -f .tags *.py"
     endif
 endfunction
-
-
+set tags=.tags
 
 " hybrid line number
 set number relativenumber
@@ -169,7 +158,9 @@ autocmd BufWritePost * call CallCtags()
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
 
-
 " to have the background transparent with the Terminal
 hi Normal ctermbg=none
 hi NonText ctermbg=none
+
+" to make the staus bar showing the current function hierarchy
+set statusline=%f\:\ %{tagbar#currenttag('[%s]\ ','','f','scoped-stl')}
