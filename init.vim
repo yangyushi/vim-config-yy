@@ -163,4 +163,4 @@ hi Normal ctermbg=none
 hi NonText ctermbg=none
 
 " to make the staus bar showing the current function hierarchy
-set statusline=%f\:\ %{tagbar#currenttag('[%s]\ ','','f','scoped-stl')}
+set statusline=%f\ \(%l,%c%V\)\:\ %{tagbar#currenttag('[%s]\ ','','f','scoped-stl')}
