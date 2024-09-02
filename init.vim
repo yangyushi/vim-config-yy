@@ -21,9 +21,10 @@ nnoremap <leader>e :TagbarToggle <CR>
 nnoremap <leader>f :Files <CR>
 nnoremap <leader>H :History <CR>
 
-let g:ale_linters = {'python': ['flake8']}
+let g:ale_linters = {'python': ['flake8'], 'cpp': ['gcc']}
 let g:ale_python_flake8_executable = 'flake8'
 let b:ale_python_flake8_use_global = 1
+let g:ale_cpp_cc_options ='-std=c++20 -Wall -I$HOME/.local/include'
 
 colorscheme wal
 
@@ -93,6 +94,7 @@ nnoremap <leader>7 :b7<cr>
 nnoremap <leader>8 :b8<cr>
 nnoremap <leader>9 :b9<cr>
 nnoremap <leader>w :bd<cr>
+nnoremap <leader>m :syntax sync fromstart<CR>
 
 " for Chinese
 set encoding=utf-8
